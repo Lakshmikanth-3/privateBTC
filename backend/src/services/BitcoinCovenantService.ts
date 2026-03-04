@@ -96,7 +96,7 @@ export class BitcoinCovenantService {
         // Add output to user
         psbt.addOutput({
             address: auth.bitcoin_address,
-            value: auth.amount_sats
+            value: BigInt(auth.amount_sats)
         });
         
         // Add change output if needed
@@ -106,7 +106,7 @@ export class BitcoinCovenantService {
         if (change > 546) { // Dust limit
             psbt.addOutput({
                 address: this.COVENANT_ADDRESS,
-                value: change
+                value: BigInt(change)
             });
             console.log(`[Covenant] Change output: ${change} sats`);
         }
@@ -132,7 +132,7 @@ export class BitcoinCovenantService {
         });
         
         // 8. Finalize with witness
-        psbt.finalizeInput(0, (inputIndex, input) => {
+        psbt.finalizeInput(0, (_inputIndex: number, _input: any) => {
             return {
                 finalScriptWitness: this.witnessStackToScriptWitness(witnessStack)
             };

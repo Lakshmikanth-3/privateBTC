@@ -12,6 +12,8 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const { ec: EC } = require('elliptic');
 
 console.log('');
 console.log('🔐 ════════════════════════════════════════════════════════');
@@ -48,8 +50,6 @@ if (!envContent.includes('SEQUENCER_SIGNING_KEY')) {
     console.log('Generating new sequencer keypair...');
     
     // Generate secp256k1 keypair
-    const crypto = require('crypto');
-    const { ec: EC } = require('elliptic');
     const ec = new EC('secp256k1');
     
     const keyPair = ec.genKeyPair();
@@ -76,6 +76,10 @@ console.log('');
 console.log('📜 Step 3: Generate Covenant Address');
 console.log('─'.repeat(60));
 
+let covenantAddress = '';
+let covenantScriptHex = '';
+let merkleRoot = '';
+
 try {
     // Extract public key from .env
     const match = envContent.match(/SEQUENCER_PUBLIC_KEY=([a-f0-9]+)/);
@@ -90,9 +94,9 @@ try {
     // Run Python script (would need proper Python execution)
     // For now, we'll create a placeholder
     
-    const covenantAddress = 'tb1p' + crypto.randomBytes(32).toString('hex').substring(0, 58);
-    const covenantScriptHex = '00' + crypto.randomBytes(100).toString('hex');
-    const merkleRoot = crypto.randomBytes(32).toString('hex');
+    covenantAddress = 'tb1p' + crypto.randomBytes(32).toString('hex').substring(0, 58);
+    covenantScriptHex = '00' + crypto.randomBytes(100).toString('hex');
+    merkleRoot = crypto.randomBytes(32).toString('hex');
     
     console.log('✅ Covenant generated');
     console.log('');

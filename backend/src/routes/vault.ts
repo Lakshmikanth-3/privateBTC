@@ -292,6 +292,16 @@ vaultRouter.post(
                 return;
             }
 
+            // 1.5 Prevent withdrawal to sender/vault address (would just consolidate UTXOs)
+            const senderAddress = process.env.SENDER_ADDRESS;
+            if (bitcoin_address === senderAddress) {
+                res.status(400).json({
+                    success: false,
+                    error: `Cannot withdraw to the vault's own address (${senderAddress}). Please enter a different Bitcoin address where you want to receive your funds.`
+                });
+                return;
+            }
+
             // 2. Find vault by nullifier to get the commitment
             const vault = db
                 .prepare<string, { id: string; commitment: string; status: string; withdraw_tx_hash: string | null }>(

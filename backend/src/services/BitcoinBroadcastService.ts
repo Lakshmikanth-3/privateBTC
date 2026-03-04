@@ -65,7 +65,7 @@ export class BitcoinBroadcastService {
         for (const utxo of allUtxos) {
             selectedUtxos.push(utxo);
             totalInput += utxo.value;
-            estimatedFee = Math.ceil((selectedUtxos.length * 68 + 2 * 31 + 10) * feeRate);
+            estimatedFee = Math.ceil((selectedUtxos.length * 68 + 2 * 31 +  12) * feeRate);
             if (totalInput >= amountSats + estimatedFee) break;
         }
 
@@ -177,7 +177,7 @@ export class BitcoinBroadcastService {
         for (const utxo of allUtxos) {
             selectedUtxos.push(utxo);
             totalInput += utxo.value;
-            estimatedFee = Math.ceil((selectedUtxos.length * 68 + 2 * 31 + 10) * feeRate);
+            estimatedFee = Math.ceil((selectedUtxos.length * 68 + 2 * 31 +  12) * feeRate);
             if (totalInput >= amountSats + estimatedFee) break;
         }
 
@@ -325,3 +325,5 @@ export class BitcoinBroadcastService {
         console.warn('[BitcoinUnsafe] ⚠️ Using unsafe direct Bitcoin send - bypass authorization check');
         return this.sendBitcoinToAddress(recipientAddress, amountSats);
     }
+}
+

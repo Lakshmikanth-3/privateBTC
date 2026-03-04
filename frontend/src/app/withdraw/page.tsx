@@ -132,12 +132,16 @@ export default function WithdrawPage() {
                             <label className="text-sm font-medium text-zinc-300">Bitcoin Withdrawal Address (Signet)</label>
                             <Input
                                 type="text"
-                                placeholder="tb1q..."
+                                placeholder="tb1q... (Enter a DIFFERENT address, not the vault address)"
                                 className="font-mono text-sm text-zinc-300 bg-zinc-900/80 border-zinc-700 h-12 focus-visible:ring-btc-500 focus-visible:border-btc-500 rounded-xl transition-all"
                                 value={bitcoinAddress}
                                 onChange={(e) => setBitcoinAddress(e.target.value)}
                             />
-                            <p className="text-xs text-zinc-500">Enter your Bitcoin Signet testnet address where you want to receive your BTC.</p>
+                            <p className="text-xs text-zinc-500">
+                                ⚠️ Enter a <strong>different</strong> Bitcoin address where you want to receive your funds. 
+                                <br/>
+                                <span className="text-red-400">Do NOT</span> use the vault address (tb1qhkjy7mc9nwg3rtnjapuqg5xczc50nv6ysm5ak8) - that just consolidates UTXOs!
+                            </p>
                         </div>
                     </div>
 
